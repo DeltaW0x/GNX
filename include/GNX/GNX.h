@@ -42,16 +42,17 @@ extern "C"{
 typedef struct GNX_Device GNX_Device;
 typedef struct GNX_Swapchain GNX_Swapchain;
 
-typedef uint32_t GNX_DeviceDriver;
+typedef uint32_t GNX_DeviceDriverFlags;
 #define GNX_DEVICEDRIVER_METAL     (1u << 0)
 #define GNX_DEVICEDRIVER_VULKAN    (1u << 1)
 #define GNX_DEVICEDRIVER_DIRECTX12 (1u << 2)
 
-typedef uint32_t GNX_DeviceType;
-#define GNX_DEVICETYPE_DISCRETE   (1u << 0)
-#define GNX_DEVICETYPE_INTEGRATED (1u << 1)
+typedef enum GNX_DeviceType{
+    GNX_DEVICETYPE_DISCRETE,
+    GNX_DEVICETYPE_INTEGRATED
+} GNX_DeviceType;
 
-typedef uint32_t GNX_DeviceFeature;
+typedef uint32_t GNX_DeviceFeatureFlags;
 #define GNX_DEVICEFEATURE_RAYTRACING              (1u << 0)
 #define GNX_DEVICEFEATURE_MESH_SHADERS            (1u << 1)
 #define GNX_DEVICEFEATURE_VARIABLE_RATE_SHADING   (1u << 2)
@@ -67,15 +68,16 @@ typedef enum GNX_SwapchainPresentMode {
 } GNX_SwapchainPresentMode;
 
 typedef struct GNX_DeviceCreateInfo {
-    GNX_DeviceDriver driver;
+    GNX_DeviceDriverFlags driver;
     GNX_DeviceType preferredDeviceType;
-    GNX_Devicefeature requiredFeatures;
-    GNX_Devicefeature optionalFeatures;
+    GNX_DeviceFeatureFlags requiredFeatures;
+    GNX_DeviceFeatureFlags optionalFeatures;
 } GNX_DeviceCreateInfo;
 
 typedef struct GNX_SwapchainCreateInfo {
     uint32_t realWindowWidth;
     uint32_t realWindowHeight;
+    
     GNX_SwapchainComposition composition;
     GNX_SwapchainPresentMode presentmode;
     
