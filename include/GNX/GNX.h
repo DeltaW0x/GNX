@@ -43,8 +43,8 @@ typedef struct GNX_Device GNX_Device;
 typedef struct GNX_Swapchain GNX_Swapchain;
 
 typedef uint32_t GNX_DeviceDriver;
-#define GNX_DEVICEDRIVER_METAL   (1u << 0)
-#define GNX_DEVICEDRIVER_VULKAN  (1u << 1)
+#define GNX_DEVICEDRIVER_METAL     (1u << 0)
+#define GNX_DEVICEDRIVER_VULKAN    (1u << 1)
 #define GNX_DEVICEDRIVER_DIRECTX12 (1u << 2)
 
 typedef uint32_t GNX_DeviceType;
@@ -52,7 +52,6 @@ typedef uint32_t GNX_DeviceType;
 #define GNX_DEVICETYPE_INTEGRATED (1u << 1)
 
 typedef uint32_t GNX_DeviceFeature;
-#define GNX_DEVICEFEATURE_NONE                    0
 #define GNX_DEVICEFEATURE_RAYTRACING              (1u << 0)
 #define GNX_DEVICEFEATURE_MESH_SHADERS            (1u << 1)
 #define GNX_DEVICEFEATURE_VARIABLE_RATE_SHADING   (1u << 2)
