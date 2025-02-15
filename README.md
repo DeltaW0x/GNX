@@ -12,4 +12,4 @@
 * `cmake -S DirToSource -B DirToBuild` (soon<sup>tm</sup>)
 
 ### Miscellaneous
-This library depends on [volk](https://github.com/zeux/volk) and the [Vulkan Memory Allocator](https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator) for the Vulkan Backend. Both are already included in the library.
+This library depends on [volk](https://github.com/zeux/volk) and the [Vulkan Memory Allocator](https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator) for the Vulkan backend. Both are already included in the library.
