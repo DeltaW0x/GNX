@@ -78,6 +78,7 @@ typedef struct GNX_SwapchainCreateInfo {
     uint32_t realWindowHeight;
     GNX_SwapchainComposition composition;
     GNX_SwapchainPresentMode presentmode;
+    
 #ifdef WIN32
     HINSTANCE hinstance;
     HWND hwnd;
