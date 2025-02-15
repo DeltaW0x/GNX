@@ -6,7 +6,7 @@
 * Lots of patience because I'm learning as I go
 
 ### How to build
-* `premake5 vs2022/gmake/xcode4/..`
+* `premake5 vs2022/gmake/xcode4/...`
   
   or
 * `cmake -S DirToSource -B DirToBuild` (soon<sup>tm</sup>)
