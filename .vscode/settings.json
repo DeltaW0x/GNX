@@ -1,0 +1,23 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "README.md": true,
+        ".gitignore": true,
+        "build": true,
+        ".vscode": true
+    },
+    "hide-files.files": [
+        "README.md",
+        ".gitignore",
+        "build",
+        ".vscode"
+    ],
+    "files.associations": {
+        "system_error": "cpp"
+    }
+}

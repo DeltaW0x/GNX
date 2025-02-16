@@ -1,0 +1,3 @@
+/home/delta/Desktop/GNX/build/CMakeFiles/GNX.dir
+/home/delta/Desktop/GNX/build/CMakeFiles/edit_cache.dir
+/home/delta/Desktop/GNX/build/CMakeFiles/rebuild_cache.dir

@@ -3,14 +3,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#ifdef GNX_METAL
-    #ifdef __OBJC__
-        @class CAMetalLayer;
-    #else
-        typedef void* CAMetalLayer;
-    #endif
-#endif
-
 #ifndef GNXCALL
     #if defined(WIN32) && !defined(__GNUC__)
         #define GNXCALL __cdecl
@@ -39,8 +31,14 @@
 extern "C"{
 #endif
 
+typedef void (*GNX_LogCallback)(const char* level, const char* message);
 typedef struct GNX_Device GNX_Device;
 typedef struct GNX_Swapchain GNX_Swapchain;
+
+#define GNX_LOGLEVEL_DEBUG   "GNX_LOGLEVEL_DEBUG"
+#define GNX_LOGLEVEL_INFO    "GNX_LOGLEVEL_INFO"
+#define GNX_LOGLEVEL_WARNING "GNX_LOGLEVEL_WARNING"
+#define GNX_LOGLEVEL_ERROR   "GNX_LOGLEVEL_ERROR"
 
 typedef uint32_t GNX_DeviceDriverFlags;
 #define GNX_DEVICEDRIVER_METAL     (1u << 0)
@@ -53,9 +51,9 @@ typedef enum GNX_DeviceType{
 } GNX_DeviceType;
 
 typedef uint32_t GNX_DeviceFeatureFlags;
-#define GNX_DEVICEFEATURE_RAYTRACING              (1u << 0)
-#define GNX_DEVICEFEATURE_MESH_SHADERS            (1u << 1)
-#define GNX_DEVICEFEATURE_VARIABLE_RATE_SHADING   (1u << 2)
+#define GNX_DEVICEFEATURE_RAYTRACING            (1u << 0)
+#define GNX_DEVICEFEATURE_MESH_SHADERS          (1u << 1)
+#define GNX_DEVICEFEATURE_VARIABLE_RATE_SHADING (1u << 2)
 
 typedef enum GNX_SwapchainComposition {
     GNX_SWAPCHAINCOMPOSITION_SDR,
@@ -72,6 +70,10 @@ typedef struct GNX_DeviceCreateInfo {
     GNX_DeviceType preferredDeviceType;
     GNX_DeviceFeatureFlags requiredFeatures;
     GNX_DeviceFeatureFlags optionalFeatures;
+    uint32_t applicationVersion;
+    uint32_t engineVersion;
+    const char* applicationName;
+    const char* engineName;
 } GNX_DeviceCreateInfo;
 
 typedef struct GNX_SwapchainCreateInfo {
@@ -81,32 +83,34 @@ typedef struct GNX_SwapchainCreateInfo {
     GNX_SwapchainComposition composition;
     GNX_SwapchainPresentMode presentmode;
     
-#ifdef WIN32
-    HINSTANCE hinstance;
-    HWND hwnd;
+#ifdef _WIN32
+    void* hinstance;
+    void* hwnd;
 #endif // __WIN32
     
 #ifdef __APPLE__
-    const CAMetalLayer* metalLayer;
+    const void* metalLayer;
 #endif // __APPLE__
 
-#ifdef __LINUX__
+#ifdef __linux__
+    bool useX11;
     union {
         struct {
-            struct wl_display* waylandDisplay;
-            struct wl_surface* waylandSurface;
+            void* waylandDisplay;
+            void* waylandSurface;
         };
         struct {
-            struct xcb_connection_t* xcbConnection;
-            struct xcb_window_t* xcbWindow;
+            void* xcbConnection;
+            void* xcbWindow;
         };
-    }
+    };
 #endif // __LINUX__
 } GNX_SwapchainCreateInfo;
 
-extern GNX_DECLSPEC const char* GNXCALL GNX_GetError(GNX_Device* device);
+extern GNX_DECLSPEC void GNXCALL GNX_SetLogCallback(GNX_LogCallback logCallback);
+extern GNX_DECLSPEC void GNXCALL GNX_RemoveLogCallback();
 
-extern GNX_DECLSPEC GNX_Device* GNXCALL GNX_CreateDevice(GNX_DeviceCreateInfo* deviceInfo);
+extern GNX_DECLSPEC GNX_Device* GNXCALL GNX_CreateDevice(GNX_DeviceCreateInfo* deviceInfo, bool debugMode);
 extern GNX_DECLSPEC bool        GNXCALL GNX_DestroyDevice(GNX_Device* device);
 
 extern GNX_DECLSPEC GNX_Swapchain* GNXCALL GNX_CreateSwapchain(GNX_Device* device, GNX_SwapchainCreateInfo* createInfo);

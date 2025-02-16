@@ -1,0 +1,36 @@
+cmake_minimum_required(VERSION 3.10)
+project("GNX" LANGUAGES CXX C)
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_CXX_STANDARD 20)
+
+option(GNX_ENABLE_VULKAN "Enables the Vulkan backend" ON)
+option(GNX_ENABLE_METAL "Enabled the Metal backend" ON)
+
+set(GNX_SOURCES "include/GNX/GNX.h" "src/GNX_common.h" "src/GNX.cpp")
+
+add_library(GNX SHARED ${GNX_SOURCES})
+target_include_directories(GNX PUBLIC "include" PRIVATE "src")
+
+if(APPLE AND GNX_ENABLE_METAL)
+    enable_language(OBJC)
+    add_compile_definitions(GNX_METAL)
+    target_sources(GNX PRIVATE "src/metal/GNX_metal.m")
+    target_link_libraries(GNX PUBLIC "--framework Foundation" "--framework Metal" "--framework QuartzCore")
+endif()
+
+if(GNX_ENABLE_VULKAN)
+    find_package(Vulkan QUIET)
+    if(Vulkan_INCLUDE_DIRS)
+      message("Using Vulkan_INCLUDE_DIRS from FindVulkan module")
+      set(GNX_VK_INCLUDES "${Vulkan_INCLUDE_DIRS}")
+    elseif(DEFINED ENV{VULKAN_SDK})
+      message("Using VULKAN_SDK environment variable")
+      set(GNX_VK_INCLUDES "$ENV{VULKAN_SDK}/include")
+    endif()
+
+    add_compile_definitions(GNX_VULKAN)
+    target_sources(GNX PRIVATE "src/vulkan/GNX_vulkan.cpp" "src/vulkan/vk_mem_alloc.h" "src/vulkan/volk.h")
+    if(GNX_VK_INCLUDES)
+      target_include_directories(GNX PUBLIC "${GNX_VK_INCLUDES}")
+    endif()
+endif()

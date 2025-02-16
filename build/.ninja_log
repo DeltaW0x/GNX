@@ -1,0 +1,4 @@
+# ninja log v6
+1	31	1739647945430046097	CMakeFiles/GNX.dir/src/GNX.cpp.o	c6ac20b2a0e79b3c
+1	447	1739647945430046097	CMakeFiles/GNX.dir/src/vulkan/GNX_vulkan.cpp.o	1ff2c7c81e5007d3
+447	508	1739647945876712770	libGNX.so	2e410c48726370f3

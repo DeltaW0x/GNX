@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/delta/Desktop/GNX/build",
+  "command": "/usr/bin/clang++ -DGNX_EXPORTS -DGNX_VULKAN -I/home/delta/Desktop/GNX/include -I/home/delta/Desktop/GNX/src -g -std=gnu++20 -fPIC -o CMakeFiles/GNX.dir/src/GNX.cpp.o -c /home/delta/Desktop/GNX/src/GNX.cpp",
+  "file": "/home/delta/Desktop/GNX/src/GNX.cpp",
+  "output": "CMakeFiles/GNX.dir/src/GNX.cpp.o"
+},
+{
+  "directory": "/home/delta/Desktop/GNX/build",
+  "command": "/usr/bin/clang++ -DGNX_EXPORTS -DGNX_VULKAN -I/home/delta/Desktop/GNX/include -I/home/delta/Desktop/GNX/src -g -std=gnu++20 -fPIC -o CMakeFiles/GNX.dir/src/vulkan/GNX_vulkan.cpp.o -c /home/delta/Desktop/GNX/src/vulkan/GNX_vulkan.cpp",
+  "file": "/home/delta/Desktop/GNX/src/vulkan/GNX_vulkan.cpp",
+  "output": "CMakeFiles/GNX.dir/src/vulkan/GNX_vulkan.cpp.o"
+}
+]
